@@ -79,8 +79,7 @@ One-to-five-line functions should be considered normal.
 >**Note**: Break large functions up into smaller cohesive and named functions.
 Small simple functions are easily inlined where the cost of a function call is significant.
 
-#### 시행하기
->**Enforcement**:
+#### 개선할 사항
 
 * "한 화면에 맞지 않는" 함수는 표시해 두세요.
 한 화면은 얼마나 클까요? 한 줄에 140자, 총 60줄에 맞추도록 노력하세요. 이 정도면 대략 책 한 페이지정도 되는데 보기 좋은 분량이 됩니다.
@@ -157,7 +156,7 @@ it just guarantees that the function can be evaluated at compile time for consta
 모든 함수를 `constexpr`로 만들지 마세요. 대부분의 계산은 런타임에 수행되는 것이 좋습니다.
 >**Note**: Don't try to make all functions `constexpr`. Most computation is best done at run time.
 
-#### 시행하기
+#### 개선할 사항
 
 불가능하고 불필요한 것.
 만약 상수를 필요로하는 곳에서 `constexpr`로 선언되지 않은 함수가 호출 된다면 컴파일러는 에러를 출력합니다.
@@ -200,7 +199,7 @@ An inline function is part of the ABI.
 템플릿 함수(템플릿 멤버 함수 포함)는 헤더에 정의 되어야 합니다. 따라서 인라인 함수가 됩니다.
 >**Exception**: Template functions (incl. template member functions) must be in headers and therefore inline.
 
-#### 수행하기
+#### 개선할 사항
 
 `inline`함수가 3줄이상 된다면 표시해 두세요. (추가번역 필요)
 >**Enforcement**: Flag `inline` functions that are more than three statements and could have been declared out of line (such as class member functions).
@@ -265,10 +264,7 @@ so don't just springle `noexcept` all over the place.
 >**Note**: Destructors, `swap` functions, move operations, and default constructors should never throw.
 
 
-#### 시행하기
-
-
->**Enforcement**:
+#### 개선할 사항
 
 * 아직까지 예외를 던질 수 없는 함수가 있다면 표시해 두세요.
 * 예외를 던지는 `swap`, move 연산자, 소멸자 그리고 기본 생성자가 있다면 표시해 두세요.
@@ -306,7 +302,7 @@ Passing a shared smart pointer (e.g., `std::shared_ptr`) implies a run-time cost
 [smart pointer use](#Rr-summary-smartptrs)에 대한 논의.
 >**See also**: Discussion of [smart pointer use](#Rr-summary-smartptrs).
 
-#### 시행하기
+#### 개선할 사항
 
 스마트 포인터 인자가 있다면 표시해 두세요.
 >**Enforcement**: Flag smart pointer arguments.
@@ -331,7 +327,7 @@ Passing a shared smart pointer (e.g., `std::shared_ptr`) implies a run-time cost
 `constexpr`는 순수함수 입니다.
 >**Note**: `constexpr` functions are pure.
 	
-#### 시행하기
+#### 개선할 사항
 
 할게 없습니다(간결하기 때문에).
 >**Enforcement**: not possible.
@@ -509,10 +505,7 @@ For example, `not_null<T*>` makes it obvious to a reader (human or machine) that
  [Support library](#S-support).
 >**See also**: [Support library](#S-support).
 
-#### 수행하기
-
-
->**Enforcement**:
+#### 개선할 사항
 
 * (단순) ((범위)) 포인터로 산술연산을 하면 포인터 변수의 타입의 값으로 연산이 되는 것에 주의하세요. 
 
@@ -544,10 +537,7 @@ For example, `not_null<T*>` makes it obvious to a reader (human or machine) that
 `not_null`은 내장형 포인터 타입에만 사용되는 것은 아닙니다. `array_view`, `string_view`, `unique_ptr`, `shared_ptr`, 그리고 다른 포인터 형에도 사용 됩니다.
 >**Note**: `not_null` is not just for built-in pointers. It works for `array_view`, `string_view`, `unique_ptr`, `shared_ptr`, and other pointer-like types.
 
-#### 수행하기
-
-
->**Enforcement**:
+#### 개선할 사항
 
 * (단순) 함수 내에서 `nullptr`를 검사하지 않고 포인터를 역참조 한다면 경고하세요. `not_null`로 선언하도록 제안하세요.
 * (단순) 함수 내에서 포인터가 역참조 될 때 `nullptr`를 검사할 때도 있고 검사하지 않을 때도 있다면 잘못되었다고 말하세요.
@@ -662,10 +652,7 @@ Functions are inconsistent in their use of `nullptr` and we must be more explici
 There in no (legitimate) "null reference."
 If you need the notion of an optional value, use a pointer, `std::optional`, or a special value used to denote "no value."
 
-#### 시행하기
-
-
->**Enforcement**:
+#### 개선할 사항
 
 * (단순) ((기초)) 매개변수에 `4*sizeof(int)`보다 큰 객체가 값으로 전달 된다면 경고 하세요.
 그리고 `const` 참조형을 사용하도록 제안하세요. 
@@ -694,10 +681,7 @@ For small objects (up to two or three words) is is also faster than alternatives
 
 	void fct(int& x);		// OK, but means something else; use only for an "out parameter"
 
-#### 수행하기
-
-
->**Enforcement**:
+#### 개선할 사항
 
 * (단순) ((기초)) `3*sizeof(int)`보다 작은 크기의 객체가 `const` 참조형 매개변수로 전달된다면 경고하세요. 대신 값형으로 전달 할 것을 제안 하세요.
 
@@ -743,10 +727,7 @@ Thus `T&` could be and in-out-parameter. That can in itself be a problem and a s
 but `f()` simply replaces it (at a somewhat higher cost than a simple copy of the characters).
 If the writer of `g()` makes an assumption about the size of `buffer` a bad logic error can happen.
 
-#### 수행하기
-
-
->**Enforcement**:
+#### 개선할 사항
 
 * (제한) ((기본)) 쓰기를 하지 않는 비상수 참조 인자를 가진 함수는 경고하세요.
 * `T&`를 취하는 함수는 표시해두고 `T`로 대체하세요.
@@ -778,7 +759,7 @@ If the writer of `g()` makes an assumption about the size of `buffer` a bad logi
 	int val();				// OK
 	val(int&);				// Bad: Is val reading its argument
 
-#### 수행하기
+#### 개선할 사항
 
 반환되는 값의 크기의 상한값을 정하는 것은 어렵습니다.
 >**Enforcement**: Hard to choose a cutover value for the size of the value returned.
@@ -801,7 +782,7 @@ If the writer of `g()` makes an assumption about the size of `buffer` a bad logi
         return forward<F>(f)(forward<Args>(args)...);
     }
 
-#### 수행하기
+#### 개선할 사항
 
 `std::forward`없이 (템플릿 매개변수로서) `TP&&`형 매개변수를 받는 함수가 있다면 표시해 두세요.
 >**Enforcement**: Flag a function that takes a `TP&&` parameter (where `TP` is a template type parameter name) and uses it without `std::forward`.
@@ -824,8 +805,6 @@ If you have performance justification to optimize for rvalues, overload on `&&` 
 
 #### Example
 
-
-
 	void somefct(string&&);
 	
 	void user()
@@ -838,8 +817,6 @@ If you have performance justification to optimize for rvalues, overload on `&&` 
 	}
 
 #### Enforcement
-
-
 
 * Flag all `X&&` parameters (where `X` is not a template type parameter name) and uses it without `std::move`.
 * Flag access to moved-from objects
@@ -872,7 +849,7 @@ If you have performance justification to optimize for rvalues, overload on `&&` 
 인터페이스로써 클래스 상속 관계에 있는 객체를 이동시키는 것이라면 포인터를 전달하는 것이 낫다.
 >**Note**: You need to pass a pointer rather than an object if what you are transferring is an object from a class hierarchy that is to be used through an interface (base class).
 
-#### 수행하기
+#### 개선할 사항
 
 (간단) 함수가 지역범위 내에서 할당한 포인터를 반환한다면 경고하세요. 대신 `unique_ptr` 나 `shared_ptr`를 사용하도록 권장하세요.
 >**Enforcement**: (Simple) Warn if a function returns a locally-allocated raw pointer. Suggest using either `unique_ptr` or `shared_ptr` instead.
@@ -911,7 +888,7 @@ If you have performance justification to optimize for rvalues, overload on `&&` 
 공유된 객체를 소유하고 있는 하나의 객체를 만들고 모든 사용자가 사용을 마치면 (아마도 암시적인 방법으로)소멸 시키세요.
 >**Alternative**: Have a single object own the shared object (e.g. a scoped object) and destroy that (preferably implicitly) when all users have completd.
 
-#### 수행하기
+#### 개선할 사항
 
 (강요할 수 없음) 이것은 검출해 내기에 매우 복잡한 패턴입니다.
 >**Enforcement**: (Not enforceable) This is a too complex pattern to reliably detect.
@@ -937,12 +914,10 @@ If you have performance justification to optimize for rvalues, overload on `&&` 
 	i = incr(i);
 
  
-#### 수행하기
+#### 개선할 사항
 
 값을 저장하기 전에 읽지 않는 비상수 매개변수는 표시해 두세요. 그런 경우 단순희 값을 반환하기만 하면 됩니다.
-#### Enforcement
-
-Flag non-const reference parameters that are not read before being written to and are a type that could be cheaply returned.
+> Flag non-const reference parameters that are not read before being written to and are a type that could be cheaply returned.
 
 
 <a name="Rf-T-multi"></a>
@@ -999,14 +974,10 @@ C++11에서는 이렇게 쓸 수 있습니다, 결과값들을 이미 존재하�
 >**Note**: In some cases it may be useful to return a specific, user-defined `Value_or_error` type along the lines of `variant<T,error_code>`,
 rather than using the generic `tuple`.
 
-#### 수행하기
-
-
+#### 개선할 사항
 
     * 출력 매개변수는 반환값으로 대체되어야 한다.
     출력 매개변수는 함수가 값을 저장하고 비상수 멤버 함수형으로 호출하거나, 비상수형으로 전달한다.
-
->**Enforcement**:
 
     * Output parameters should be replaced by return values.
 	An output parameter is one that the function writes to, invokes a non-`const` member function, or passes on as a non-`const`.
@@ -1049,7 +1020,6 @@ Importantly, that does not imply a transfer of ownership of the pointed-to objec
 
 #### 나쁜 예
 
-
 >**Example, bad**:
 
 	int* f()
@@ -1075,7 +1045,7 @@ Importantly, that does not imply a transfer of ownership of the pointed-to objec
 [discussion of dangling pointer prevention](#???).
 >**See also**: [discussion of dangling pointer prevention](#???).
 
-#### 수행하기
+#### 개선할 사항
 
 문제의 약간 다른 변형은 가리키고 있는 객체보다 더 오래 살아 있는 컨테이너에 위치한 포인터 입니다.
 >**Enforcement**: A slightly diffent variant of the problem is placing pointers in a container that outlives the objects pointed to.
@@ -1205,13 +1175,11 @@ Preventable through static analysis.
 
 #### 예제
 
-	???
+???
 
-#### 수행하기
+#### 개선할 사항
 
 ???
->**Enforcement**: ???
-
 
 <a name="Rf-return-ref-ref"></a>
 ### F.45: `T&&`를 반환하지 마라
@@ -1252,7 +1220,7 @@ Preventable through static analysis.
 `std::move` 와 `std::forward`는 `&&`를 반환하지만 형변환일 뿐이다. -- used by convention only in expression contexts where a reference to a temporary object is passed along within the same expression before the temporary is destroyed. 우리는 `&&`를 반환하는 다른 좋은 예제를 모릅니다.
 >**Exception**: `std::move` and `std::forward` do return `&&`, but they are just casts -- used by convention only in expression contexts where a reference to a temporary object is passed along within the same expression before the temporary is destroyed. We don't know of any other good examples of returning `&&`.
 
-#### 수행하기
+#### 개선할 사항
 
 `std::move` 와 `std::forward`를 제외하고 `&&`를 반환한다면 표시를 해 두세요.
 >**Enforcement**: Flag any use of `&&` as a return type, except in `std::move` and `std::forward`.
@@ -1292,12 +1260,7 @@ Preventable through static analysis.
 제네릭 람다는 함수 템플릿을 구현하는 간결한 방법을 제공하기 때문에 더 적은 문법으로 일반 함수 템플릿과 같은 기능을 할 수 있습니다. 그렇지만 앞으로 함수가 컨셉 매개변수를 가지게되면 이 장점은 사라질 것입니다.
 >**Exception**: Generic lambdas offer a concise way to write function templates and so can be useful even when a normal function template would do equally well with a little more syntax. This advantage will probably disappear in the future once all functions gain the ability to have Concept parameters.
 
-#### 수행하기
-
-
-#### Enforcement
-
-
+#### 개선할 사항
 
     * Warn on use of a named non-generic lambda (e.g., `auto x = [](int i){ /*...*/; };`) that captures nothing and appears at global scope. Write an ordinary function instead.
 
@@ -1333,7 +1296,7 @@ Preventable through static analysis.
 	b.multiply(10);	// these two calls will call the same function but
 	d.multiply(10); // with different arguments and so different results
 
-#### 수행하기
+#### 개선할 사항
 
 기본인자를 사용하는 가상함수는 표시를 해두세요.
 >**Enforcement**: Flag all uses of default arguments in virtual functions.
@@ -1360,8 +1323,7 @@ Preventable through static analysis.
 	    for (auto& b : bufs) { decorator.process(b); }
 	} // automatically blocks waiting for pipeline to finish
 
-#### 수행하기
->**Enforcement**
+#### 개선할 사항
 
 ???
 
@@ -1384,8 +1346,7 @@ Preventable through static analysis.
 		background_thread.queue_work([=]{ process(a,b,c); });	// want copies of a, b, and c
 	}
 
-#### 수행하기
->**Enforcement**
+#### 개선할 사항
 
 ???
 
