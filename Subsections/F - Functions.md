@@ -1,6 +1,7 @@
 <a name="Rf-single"></a>
 ### F.3: 함수를 간결하고 단순하고 유지하라
 >### F.3: Keep functions short and simple
+> [원문 링크](https://github.com/isocpp/CppCoreGuidelines/blob/master/CppCoreGuidelines.md#Rf-single)
 
 **근거**: 긴 함수는 읽기 어렵고 복잡하고, 변수는 최소범위를 넘어서서 사용되고 있을지 모른다. 복잡한 제어구조를 가진 함수는 더 길고 논리적 오류가 숨겨져 있을지도 모른다. 
 >**Reason**: Large functions are hard to read, more likely to contain complex code, and more likely to have variables in larger than minimal scopes.
@@ -92,6 +93,7 @@ You could use cyclomatic complexity. Try "more that 10 logical path through." Co
 <a name="Rf-constexpr"></a>
 ### F.4: 함수가 컴파일 타임에 평가되어야 한다면  `constexpr`로 선언하라
 >### F.4: If a function may have to be evaluated at compile time, declare it `constexpr`
+> [원문 링크](https://github.com/isocpp/CppCoreGuidelines/blob/master/CppCoreGuidelines.md#Rf-constexpr)
 
 **근거**: `constexpr`는 컴파일러에게 컴파일 타임에 평가하라고 지시하는데 사용됩니다.
 >**Reason**: `constexpr` is needed to tell the compiler to allow compile-time evaluation.
@@ -151,6 +153,7 @@ The compiler gives an error if a non-`constexpr` function is called where a cons
 <a name="Rf-inline"></a>
 ### F.5: 만약 함수가 매우 짧고 수행시간이 중요하다면 `inline`으로 선언하라
 >### F.5: If a function is very small and time critical, declare it `inline`
+> [원문 링크](https://github.com/isocpp/CppCoreGuidelines/blob/master/CppCoreGuidelines.md#Rf-inline)
 
 **근거**: 일부 최적화기는 프로그래머로부터 힌트를 받지 않아도 함수 인라인화를 잘 해내지만 그것에 의존하지는 마세요.
 지난 40년간 우리는 컴파일러가 아무런 힌트가 없어도 사람보다 더 인라인화를 잘 할거라고 약속해 왔습니다.
@@ -181,6 +184,7 @@ To fix: Declare the function out of line. [[NM: Certainly possible, but size-bas
 <a name="Rf-noexcept"></a>
 ### F.6: 만약 함수가 예외를 던지지 않는다면 `noexcept`로 선언하라.
 >### F.6: If your function may not throw, declare it `noexcept`
+> [원문 링크](https://github.com/isocpp/CppCoreGuidelines/blob/master/CppCoreGuidelines.md#Rf-noexcept)
 
 **근거**: 예외를 던지지 않기로 계획 했다면, 프로그램은 오류를 처리하지 않을 것이기 때문에 가능하면 빨리 종료되어야 합니다. `noexcept`를 선언하면 최적화기가 선택하는 여러가지 대안들을 사전에 제거할 수 있도록 도와주게 됩니다.
 >**Reason**: If an exception is not supposed to be thrown, the program cannot be assumed to cope with the error and should be terminated as soon as possible. Declaring a function `noexcept` helps optimizers by reducing the number of alternative execution paths. It also speeds up the exit after failure.
@@ -237,6 +241,7 @@ so don't just springle `noexcept` all over the place.
 <a name="Rf-smart"></a>
 ### F.7: 범용으로 사용하려면 스마트포인터 대신에 `T*`형 인자를 사용하라.
 >### F.7: For general use, take `T*` arguments rather than a smart pointers
+> [원문 링크](https://github.com/isocpp/CppCoreGuidelines/blob/master/CppCoreGuidelines.md#Rf-smart)
 
 **근거**: 스마트 포인터를 인자로 사용하면 소유권이 이전되거나 공유 됩니다.
 스마트 포인터를 인자로 사용하면 함수 호출 시 스마트 포인터를 사용해야한다는 제약이 생깁니다.
@@ -265,6 +270,7 @@ Passing a shared smart pointer (e.g., `std::shared_ptr`) implies a run-time cost
 <a name="Rf-pure"></a>
 ### F.8: 간결한 함수를 선호하라
 >### F.8: Prefer pure functions
+> [원문 링크](https://github.com/isocpp/CppCoreGuidelines/blob/master/CppCoreGuidelines.md#Rf-pure)
 
 **근거**: 간결한 함수는 이유를 이해하기 쉽고, 최적화하기 쉽고(병렬화되어 있더라도), 메모이제이션하기 쉽습니다.
 >**Reason**: Pure functions are easier to reason about, sometimes easier to optimize (and even parallelize), and sometimes can be memoized.
@@ -293,6 +299,7 @@ Passing a shared smart pointer (e.g., `std::shared_ptr`) implies a run-time cost
 <a name="Rf-conventional"></a>
 ### F.15: 정보를 전달 할 때 단순하고 관습적인 방법을 선호하라
 >### Rule F.15: Prefer simple and conventional ways of passing information
+> [원문 링크](https://github.com/isocpp/CppCoreGuidelines/blob/master/CppCoreGuidelines.md#Rf-conventional)
 
 **근거**: "별나면서 교묘한" 기법은 깜짝놀랄만한 버그를 만들어내거나, 다른 프로그래머가 코드를 이해하는데 어렵게 만든다. 
 정말로 일반적인 기법을 넘어서는 방법으로 최적화를 해야 한다면 꼭 필요한 개선사항이라는것을 확신할 수 있어야하고, 이식성이 없을 수 있기 때문에 문서나 주석을 남겨야 한다.
@@ -384,8 +391,9 @@ such as passing a `const int&`, returning an `array<BigPOD>` by value, and retur
 
 
 <a name="Rf-ptr"></a>
-### F.16: 객체 하나를 가리킬 때는 `T*`또는 `owner<T*>`를 사용하라 
->### F.16: Use `T*` or `owner<T*>` to designate a single object
+### F.22: 객체 하나를 가리킬 때는 `T*`또는 `owner<T*>`를 사용하라
+>### F.22: Use `T*` or `owner<T*>` to designate a single object
+> [원문 링크](https://github.com/isocpp/CppCoreGuidelines/blob/master/CppCoreGuidelines.md#Rf-ptr)
 
 **근거**: 전통적인 C, C++에서는 많은 경우에  단순히 `T*`가 사용되었다. 예를 들어,
 
@@ -445,8 +453,9 @@ For example, `not_null<T*>` makes it obvious to a reader (human or machine) that
 
 
 <a name="Rf-nullptr"></a>
-### F.17: "널"이 유효하지 않은 값을 의미한다면 `not_null<T>`을 사용하세요 
->### F.17: Use a `not_null<T>` to indicate that "null" is not a valid value
+### F.23: "null"이 유효하지 않은 값을 의미한다면 `not_null<T>`을 사용하세요
+>### F.23: Use a `not_null<T>` to indicate that "null" is not a valid value
+> [원문 링크](https://github.com/isocpp/CppCoreGuidelines/blob/master/CppCoreGuidelines.md#Rf-nullptr)
 
 **근거**: 명확성. 널인지 확인 할 필요가 없다는 것을 명확히 해 줌.
 >**Reason**: Clarity. Making it clear that a test for null isn't needed.
@@ -479,8 +488,9 @@ For example, `not_null<T*>` makes it obvious to a reader (human or machine) that
 
 
 <a name="Rf-range"></a>
-### F.18: 반 개방 범위를 나타날 때는 `array_view<T>` 또는 `array_view_p<T>`를 사용하라
+### F.24: 반 개방 범위를 나타날 때는 `array_view<T>` 또는 `array_view_p<T>`를 사용하라
 >### F.18: Use an `array_view<T>` or an `array_view_p<T>` to designate a half-open sequence
+> [원문 링크](https://github.com/isocpp/CppCoreGuidelines/blob/master/CppCoreGuidelines.md#Rf-range)
 
 **Reason**: Informal/non-explicit ranges are a source of errors
 
@@ -503,9 +513,10 @@ For example, `not_null<T*>` makes it obvious to a reader (human or machine) that
 **Enforcement**: (Complex) Warn where accesses to pointer parameters are bounded by other parameters that are integral types and suggest they could use `array_view` instead.
 
 
-<a name="Rf-string"></a>
-### F.19: C언어 형식의 문자열을 가리킬 때는 `zstring`또는 `not_null<zstring>`을 사용하라
->### F.19: Use a `zstring` or a `not_null<zstring>` to designate a C-style string
+<a name="Rf-zstring"></a>
+### F.25: C언어 형식의 문자열을 가리킬 때는 `zstring`또는 `not_null<zstring>`을 사용하라
+>### F.25: Use a `zstring` or a `not_null<zstring>` to designate a C-style string
+> [원문 링크](https://github.com/isocpp/CppCoreGuidelines/blob/master/CppCoreGuidelines.md#Rf-zstring)
 
 **근거**: C언어 형식의 문자열은 어디에나 있습니다.
 C언어 형식의 문자열은 관습에 따라 정의 됩니다: 0으로 끝나는 문자 배열의 집합.
@@ -536,6 +547,7 @@ Functions are inconsistent in their use of `nullptr` and we must be more explici
 <a name="Rf-const-T-ref"></a>
 ### F.20: 크기가 큰 객체는 `const T&`형 매개변수를 사용하라
 >### F.20: Use a `const T&` parameter for a large object
+> [원문제거됨](blank)
 
 **근거**: 큰 객체를 복사하는데는 비용이 많이 들어갈 수 있습니다. `const T&`는 항상 비용이 적고 호출자가 의도하지 않게 값을 수정하는 오류를 저지르지 않게 막아 줍니다.
 >**Reason**: Copying large objects can be expensive. A `const T&` is always cheap and protects the caller from unintended modification.
@@ -570,6 +582,7 @@ Suggest using a `const` reference instead.
 <a name="Rf-T"></a>
 ### F.21: 크기가 작은 객체에는 `T`형 매개변수를 사용하세요
 >### F.21: Use a `T` parameter for a small object
+> [원문제거됨](blank)
 
 **근거**: 그 어떤것도 단순함과 복사 안정성을 이길 수는 없습니다.
 작은 객체의 경우 (최대 8또는 12바이트) 그 어떤 대안보다 더 빠릅니다.
@@ -596,6 +609,7 @@ For small objects (up to two or three words) is is also faster than alternatives
 <a name="Rf-T-ref"></a>
 ### F.22: 입출력 매개변수는 `T&`를 사용하라
 >### F.22: Use a `T&` for an in-out-parameter
+> [원문제거됨](blank)
 
 **근거**: 함수는 비상수 참조 인자에 값을 쓸 수 있고 그렇게 할 것이라고 가정하세요. 
 >**Reason**: A called function can write to a non-`const` reference argument, so assume that it does.
@@ -641,6 +655,7 @@ If the writer of `g()` makes an assumption about the size of `buffer` a bad logi
 <a name="Rf-T-return-out"></a>
 ### F.23: 값을 이동하는데 비용이 많이드는 출력 매개변수는 `T&`를 사용하라
 >### F.23: Use `T&` for an out-parameter that is expensive to move (only)
+> [원문제거됨](blank)
 
 **근거**: 값을 반환하는 것은 `T&`(입출력 매개변수)보다 놓치는 경우가  거의 없고 잘못 사용하는 경우도 드물다; [더 보기](#Rf-return); [see also](#Rf-T-multi).
 >**Reason**: A return value is harder to miss and harder to miuse than a `T&` (an in-out parameter); [see also](#Rf-return); [see also](#Rf-T-multi).
@@ -666,6 +681,7 @@ If the writer of `g()` makes an assumption about the size of `buffer` a bad logi
 <a name="Rf-pass-ref-ref"></a>
 ### F.24: 포워딩 할 때는 `TP&&`를 사용하라 
 >### F.24: Use a `TP&&` parameter when forwarding (only)
+> [원문제거됨](blank)
 
 **근거**: `TP`가 템플릿형 매개변수면 `TP&&`는 포워딩 참조가 된다 -- 이 때 상수 속성과 rvalue 속성은 *무시* 되기도하고 *보존* 되기도 한다. 그래서 `T&&`를 사용하는 코드는 변수의 상수 속성과 rvalue 속성에 게의치 않는다는 의미를 내포하지만 (어차피 무시되기 때문에), 값을 전달하는 코드에서는 상수 속성과 rvalue 속성을 신경쓴다 (보존이 되기 때문에). `TP&&`형 매개변수에 임시객체가 전달되면 함수가 실행되는 동안에는 유효하기 때문에 안전하다. `TP&&`형 매개변수는 항상 `std::forward`를 이용하여 함수의 몸체에서 전달되어야 한다.
 >**Reason**: When `TP` is a template type parameter, `TP&&` is a forwarding reference -- it both *ignores* and *preserves* const-ness and rvalue-ness. Therefore any code that uses a `T&&` is implicitly declaring that it itself doesn't care about the variable's const-ness and rvalue-ness (because it is ignored), but that intends to pass the value onward to other code that does care about const-ness and rvalue-ness (because it is preserved). When used as a parameter `TP&&` is safe because any temporary objects passed from the caller will live for the duration of the function call. A parameter of type `TP&&` should essentially always be passed onward via `std::forward` in the body of the function.
@@ -685,6 +701,7 @@ If the writer of `g()` makes an assumption about the size of `buffer` a bad logi
 <a name ="Rf-pass-ref-move"></a>
 ### F.25: 드물기는 하지만 최적화가 필요할 때 `T&&` 매개변수와 `move`를 사용하라
 >### F.25: Use a `T&&` parameter together with `move` for rare optimization opportunities
+> [원문제거됨](blank)
 
 **근거**: 
 **Reason**: Moving from an object leaves an object in its moved-from state behind.
@@ -714,6 +731,7 @@ If you have performance justification to optimize for rvalues, overload on `&&` 
 <a name="Rf-unique_ptr"></a>
 ### F.26: 포인터의 소유권을 이동해야 할 때는 `unique_ptr<T>`을 사용하라
 >### F.26: Use a `unique_ptr<T>` to transfer ownership where a pointer is needed
+> [원문 링크](https://github.com/isocpp/CppCoreGuidelines/blob/master/CppCoreGuidelines.md#Rf-unique_ptr)
 
 **근거**: 가장 저렴한 비용으로 안전하게 포인터의 소유권을 이동시키는 방법은 `unique_ptr`을 사용하는 것이다.
 >**Reason**: Using `unique_ptr` is the cheapest way to pass a pointer safely.
@@ -742,6 +760,7 @@ If you have performance justification to optimize for rvalues, overload on `&&` 
 <a name="Rf-shared_ptr"></a>
 ### F.27: 소유권을 공유 할 때는 `shared_ptr<T>` 사용하라
 >### F.27: Use a `shared_ptr<T>` to share ownership
+> [원문 링크](https://github.com/isocpp/CppCoreGuidelines/blob/master/CppCoreGuidelines.md#Rf-shared_ptr)
 
 **근거**: `std::shared_ptr`를 사용하여 소유권을 공유하는 방법은 표준 입니다. 마지막 소유자가 객체를 소멸 시킵니다.
 >**Reason**: Using `std::shared_ptr` is the standard way to represent shared ownership. That is, the last owner deletes the object.
@@ -774,6 +793,7 @@ If you have performance justification to optimize for rvalues, overload on `&&` 
 <a name="Rf-T-return"></a>
 ### F.40: 값 반환을 선호하라
 >### F.40: Prefer return values to out-parameters
+> [원문제거됨](blank)
 
 **근거**: 코드만으로도 문서화가 된다. `&`는 입/출력 또는 출력용 매개변수가 될 수 있다.
 >**Reason**: It's self-documenting. A `&` parameter could be either in/out or out-only.
@@ -796,6 +816,7 @@ If you have performance justification to optimize for rvalues, overload on `&&` 
 <a name="Rf-T-multi"></a>
 ### F.41: 다수의 출력 매개변수는 tuple을 사용하라 
 >### F.41: Prefer to return tuples to multiple out-parameters
+> [원문제거됨](blank)
 
 **근거**: 값 반환은 코드 자체가 "출력용"이라는 문서화 역할을 한다.
 예 그렇습니다, C++는 다수의 값을 반환할 수 있는데 `tuple`과 추가 편의를 제공하는 `tie`를 사용합니다.
@@ -855,6 +876,7 @@ rather than using the generic `tuple`.
 <a name="Rf-return-ptr"></a>
 ### F.42: 메모리 주소의 위치를 나타나는 경우에만 `T*`를 반환하라
 >### F.42: Return a `T*` to indicate a position (only)
+> [원문 링크](https://github.com/isocpp/CppCoreGuidelines/blob/master/CppCoreGuidelines.md#Rf-return-ptr)
 
 **근거**: 메모리 주소의 위치를 반환하는 경우는 포인터가 가장 좋다.
 >**Reason**: That's what pointers are good for.
@@ -918,6 +940,7 @@ Importantly, that does not imply a transfer of ownership of the pointed-to objec
 
 <a name="Rf-dangle"></a>
 ### F.43: Never (directly or indirectly) return a pointer to a local object
+> [원문 링크](https://github.com/isocpp/CppCoreGuidelines/blob/master/CppCoreGuidelines.md#Rf-dangle)
 
 **Reason**: To avoid the crashes and data corruption that can result from the use of such a dangling pointer.
 
@@ -1002,8 +1025,9 @@ It can be detected/prevented with similar techniques.
 
 
 <a name="Rf-return-ref"></a>
-### F.44: "객체를 반환하지 않기"가 선택사항이 아니라면 `T&`를 반환하라
->### F.44: Return a `T&` when "returning no object" isn't an option
+### F.44: 객체 복사가 꺼려지고 "객체를 반환하지 않기"가 필요하지 않다면 `T&`를 반환하라
+>### F.44: Return a `T&` when copy is undesirable and "returning no object" isn't needed
+> [원문 링크](https://github.com/isocpp/CppCoreGuidelines/blob/master/CppCoreGuidelines.md#Rf-return-ref)
 
 **근거**: 언어가 `T&`는 객체를 가리키고 있다는 것을 보장하기 때문에 `nullptr`인지 시험하는 것은 필요없다.
 >**Reason**: The language guarantees that a `T&` refers to an object, so that testing for `nullptr` isn't necessary.
@@ -1026,6 +1050,7 @@ It can be detected/prevented with similar techniques.
 <a name="Rf-return-ref-ref"></a>
 ### F.45: `T&&`를 반환하지 마라
 >### F.45: Don't return a `T&&`
+> [원문 링크](https://github.com/isocpp/CppCoreGuidelines/blob/master/CppCoreGuidelines.md#Rf-return-ref-ref)
 
 **근거**: 이것은 소멸된 임시 객체의 참조를 반환하라고 요청하는 것입니다. `&&`는 임시 객체에 붙는 자석 입니다. 임시 객체를 가리키는 참조는 함수호출보다 오래 살아 있기 때문에 피호줄자로 '하향이동' 시키는 편이 낫습니다. ([F.24](#RF-pass-ref-ref) 와 [F.25](#Rf-pass-ref-move)를 참조 하세요.) 그러나 임시객체의 참조를 호출자 범위로 '상향이동' 시키는 것은 좋지 않습니다. [F54](#Rf-local-ref-ref)를 보세요.
 >**Reason**: It's asking to return a reference to a destroyed temporary object. A `&&` is a magnet for temporary objects. This is fine when the reference to the temporary is being passed "downward" to a callee, because the temporary is guaranteed to outlive the function call. (See [F.24](#RF-pass-ref-ref) and [F.25](#Rf-pass-ref-move).) However, it's not fine when passing such a reference "upward" to a larger caller scope. See also [F54](#Rf-local-ref-ref).
@@ -1061,6 +1086,7 @@ It can be detected/prevented with similar techniques.
 <a name="Rf-capture-vs-overload"></a>
 ### F.50: 함수로 할 수 없을 때 람다를 사용하라 (지역변수를 캡쳐하거나 지역함수를 구현하기 위해서)
 >### F.50: Use a lambda when a function won't do (to capture local variables, or to write a local function)
+> [원문 링크](https://github.com/isocpp/CppCoreGuidelines/blob/master/CppCoreGuidelines.md#Rf-capture-vs-overload)
 
 **근거**: 함수는 지역변수를 캡쳐할 수 없고, 지역범위로 선언될 수도 없습니다. 이런 기능이 필요하다면 가능한 곳에서 람다를 사용하고, 그렇지 않는 곳에서는 함수객체를 사용하세요. 한편 람다와 함수객체는 오버로드 할 수 없습니다; 만약 로버로드가 필요하다면 함수를 사용하세요(람다를 오버로드하면 굉장히 복잡한 문제를 발생시킵니다). 만약 둘다 사용할 수 있다면 함수를 사용하세요; 가장 단순한 툴을 사용하세요.
 >**Reason**: Functions can't capture local variables or be declared at local scope; if you need those things, prefer a lambda where possible, and a handwritten function object where not. On the other hand, lambdas and function objects don't overload; if you need to overload, prefer a function (the workarounds to make lambdas overload are ornate). If either will work, prefer writing a function; use the simplest tool necessary.
@@ -1099,6 +1125,7 @@ It can be detected/prevented with similar techniques.
 <a name="Rf-default-args"></a>
 ### F.51: 가상함수의 기본인자도 오버로딩하라.
 >### F.51: Prefer overloading over default arguments for virtual functions
+> [원문 링크](https://github.com/isocpp/CppCoreGuidelines/blob/master/CppCoreGuidelines.md#Rf-default-args)
 
 혹시 다른 상황이 뭐가 있을까?
 >??? possibly other situations?
@@ -1132,6 +1159,7 @@ It can be detected/prevented with similar techniques.
 <a name="Rf-reference-capture"></a>
 ### F.52: 지역범위에서 사용되는 변수는(알고리즘에 전달 되는것을 포함) 참조에 의한 캡쳐를 사용하라.
 >### F.52: Prefer capturing by reference in lambdas that will be used locally, including passed to algorithms
+> [원문 링크](https://github.com/isocpp/CppCoreGuidelines/blob/master/CppCoreGuidelines.md#Rf-reference-capture)
 
 **근거**: 효율성과 정확도를 위해서 지역범위에서 람다를 사용할 때 참조에 의한 캡쳐를 원할 겁니다. 이 방법은 지역범위에서 병렬알고리즘을 호출 할 때도 해당됩니다.
 >**Reason**: For efficiency and correctness, you nearly always want to capture by reference when using the lambda locally. This includes when writing or calling parallel algorithms that are local because they join before returning.
@@ -1153,6 +1181,7 @@ It can be detected/prevented with similar techniques.
 <a name="Rf-value-capture"></a>
 ### F.53: 람다에서는 지역범위에서 사용되지 않는 변수를(반환값, 힙에 할당된 값 그리고 다른 쓰레드로 전달되는 값을 포함하여) 참조에 의한 캡쳐를 해서는 안된다. 
 >### F.53: Avoid capturing by reference in lambdas that will be used nonlocally, including returned, stored on the heap, or passed to another thread
+> [원문 링크](https://github.com/isocpp/CppCoreGuidelines/blob/master/CppCoreGuidelines.md#Rf-value-capture)
 
 **근거**: 지역범위에 있는 포인터와 참조는 범위를 넘어서면 더 이상 존재하지 않는다.
 참조의한 캡쳐를 가진 람다는 지역 객체의 참조를 저장하는 또 다른 공간일 뿐이고 지역범위를 넘어서면 더 이상 존재하지 않는다. 
