@@ -384,8 +384,8 @@ such as passing a `const int&`, returning an `array<BigPOD>` by value, and retur
 
 
 <a name="Rf-ptr"></a>
-### F.16: 객체 하나를 가리킬 때는 `T*`또는 `owner<T*>`를 사용하라 
->### F.16: Use `T*` or `owner<T*>` to designate a single object
+### F.22: 객체 하나를 가리킬 때는 `T*`또는 `owner<T*>`를 사용하라
+>### F.22: Use `T*` or `owner<T*>` to designate a single object
 
 **근거**: 전통적인 C, C++에서는 많은 경우에  단순히 `T*`가 사용되었다. 예를 들어,
 
@@ -445,8 +445,8 @@ For example, `not_null<T*>` makes it obvious to a reader (human or machine) that
 
 
 <a name="Rf-nullptr"></a>
-### F.17: "널"이 유효하지 않은 값을 의미한다면 `not_null<T>`을 사용하세요 
->### F.17: Use a `not_null<T>` to indicate that "null" is not a valid value
+### F.23: "null"이 유효하지 않은 값을 의미한다면 `not_null<T>`을 사용하세요
+>### F.23: Use a `not_null<T>` to indicate that "null" is not a valid value
 
 **근거**: 명확성. 널인지 확인 할 필요가 없다는 것을 명확히 해 줌.
 >**Reason**: Clarity. Making it clear that a test for null isn't needed.
@@ -479,8 +479,8 @@ For example, `not_null<T*>` makes it obvious to a reader (human or machine) that
 
 
 <a name="Rf-range"></a>
-### F.18: 반 개방 범위를 나타날 때는 `array_view<T>` 또는 `array_view_p<T>`를 사용하라
->### F.18: Use an `array_view<T>` or an `array_view_p<T>` to designate a half-open sequence
+### F.24: 반 개방 범위를 나타날 때는 `array_view<T>` 또는 `array_view_p<T>`를 사용하라
+>### F.24: Use an `array_view<T>` or an `array_view_p<T>` to designate a half-open sequence
 
 **Reason**: Informal/non-explicit ranges are a source of errors
 
@@ -504,8 +504,8 @@ For example, `not_null<T*>` makes it obvious to a reader (human or machine) that
 
 
 <a name="Rf-string"></a>
-### F.19: C언어 형식의 문자열을 가리킬 때는 `zstring`또는 `not_null<zstring>`을 사용하라
->### F.19: Use a `zstring` or a `not_null<zstring>` to designate a C-style string
+### F.25: C 언어 형식의 문자열을 가리킬 때는 `zstring`또는 `not_null<zstring>`을 사용하라
+>### F.25: Use a `zstring` or a `not_null<zstring>` to designate a C-style string
 
 **근거**: C언어 형식의 문자열은 어디에나 있습니다.
 C언어 형식의 문자열은 관습에 따라 정의 됩니다: 0으로 끝나는 문자 배열의 집합.
