@@ -300,7 +300,7 @@ Passing a shared smart pointer (e.g., `std::shared_ptr`) implies a run-time cost
 If you really feel the need for an optimization beyond the common techniques, measure to ensure that it really is an improvement,
 and document/comment because the improvement may not be portable.
 
-![Normal parameter passing table](./param-passing-normal.png "Normal parameter passing")
+![Normal parameter passing table](../param-passing-normal.png "Normal parameter passing")
 
 **"결과값"에 대해서**: 출력 매개변수보다는 반환값을 더 선호하라.
 메모리 관리를 피하고 성능을 향상시키기 위해 move 연산자를 사용하는 표준 컨테이너와 같이 크기가 큰 객체에도 해당된다. 
@@ -340,7 +340,7 @@ Otherwise, pass by `const&`. It is useful to know that a function does not mutat
 What is "cheap to copy" depends on the machine architecture, but two or three words (doubles, pointers, references) are usually best passed by value.
 In particular, an object passed by value does not require an extra reference to access from the function.
 
-![Advanced parameter passing table](./param-passing-advanced.png "Advanced parameter passing")
+![Advanced parameter passing table](../param-passing-advanced.png "Advanced parameter passing")
 
 For advanced uses (only), where you really need to optimize for rvalues passed to "input-only" parameters:
 
