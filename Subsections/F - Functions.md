@@ -263,10 +263,10 @@ Passing a shared smart pointer (e.g., `std::shared_ptr`) implies a run-time cost
 
 
 <a name="Rf-pure"></a>
-### F.8: 간결한 함수를 선호하라
+### F.8: 순수함수(pure function)를 선호하라
 > [원문 링크](https://github.com/isocpp/CppCoreGuidelines/blob/master/CppCoreGuidelines.md#Rf-pure)
 
-**근거**: 간결한 함수는 이유를 이해하기 쉽고, 최적화하기 쉽고(병렬화되어 있더라도), 메모이제이션하기 쉽습니다.
+**근거**: 순수함수는 이유를 이해하기 쉽고, 최적화하기 쉽고(병렬화되어 있더라도), 메모이제이션하기 쉽습니다.
 >**Reason**: Pure functions are easier to reason about, sometimes easier to optimize (and even parallelize), and sometimes can be memoized.
 
 **예**:
@@ -275,7 +275,7 @@ Passing a shared smart pointer (e.g., `std::shared_ptr`) implies a run-time cost
     template<class T>
 	auto square(T t) { return t*t; }
 	
-**참고 사항**: `constexpr`는 간결한 함수 입니다.
+**참고 사항**: `constexpr`는 순수함수 입니다.
 >**Note**: `constexpr` functions are pure.
 	
 **시행하기**: 할게 없습니다(간결하기 때문에).
